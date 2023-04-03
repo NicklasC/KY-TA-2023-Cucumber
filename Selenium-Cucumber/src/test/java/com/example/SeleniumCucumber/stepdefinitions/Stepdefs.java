@@ -30,6 +30,16 @@ public class Stepdefs {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         System.out.println("Setting up....");
 
+        // Here we are also taking care of initial Cookie popup on SVT site
+        driver.get("https://svtplay.se");
+
+        // Now we are removing the popup window
+        WebElement acceptAllButton = driver.findElement(By.xpath("//button[contains(text(), 'Acceptera alla')]"));
+        acceptAllButton.click();
+
+        // TODO: Here we are doing an ugly wait to wait for the "saving your selection" after clicking 'acceptera alla' button above. Can be improved at some point.
+        sleep(5);
+
     }
 
     @AfterAll
@@ -39,27 +49,21 @@ public class Stepdefs {
     }
 
 
-    @Given("SVT play is available")
+    //@Given("SVT play is available")
     public void svtPlayIsAvailable() {
+        // First load of page is done in beforeAll setUp and also handles the cookie popup. This method loads the initial page so we know where the test starts.
         driver.get("https://svtplay.se");
-        // Remove popup window
-
-        WebElement acceptAllButton = driver.findElement(By.xpath("//button[contains(text(), 'Acceptera alla')]"));
-        acceptAllButton.click();
-
-        // TODO: Here we are doing an ugly wait to wait for the "saving your selection" after clicking 'acceptera alla' button above. Can be improved at some point.
-        sleep(5);
 
     }
 
-    @When("User visits SVT Play")
+    @Given("User visits SVT Play")
     public void userVisitsSVTPlay() {
         driver.get("https://svtplay.se");//Before each normally navigates to page, but doing it here as well for better test understandability.
     }
 
-    @Then("The title should be {string}")
-    public void theTitleShouldBe(String arg0) {
-        assertEquals("SVT Play", driver.getTitle(), "Page title is not as expected");
+    @Then("The browser title should be {string}")
+    public void theBrowserTitleShouldBe(String expectedTitle) {
+        assertEquals(expectedTitle, driver.getTitle(), "Page title is not as expected");
     }
 
     public static void sleep(int numberOfSeconds) {
