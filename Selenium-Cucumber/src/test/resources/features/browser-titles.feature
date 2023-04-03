@@ -5,7 +5,3 @@ Given SVT play is available
 When User visits SVT Play
 Then The title should be "SVT Play"
 
-Scenario: SVT Play should show correct title igen
-Given SVT play is available
-When User visits SVT Play
-Then The title should be "SVT Play igen"
