@@ -308,4 +308,17 @@ public class Stepdefs {
         WebElement link = driver.findElement(By.xpath("//em[normalize-space()='Karen Pirie: Kalla fall']"));
         link.click();
     }
+
+    @When("user clicks TV link")
+    public void userClicksTVLink() {
+        WebElement link = driver.findElement(By.xpath("//a[@href='https://kontakt.svt.se/guide/svt-play-pa-tv']"));
+        link.click();
+        sleep(5);
+    }
+
+    @Then("TV page should display")
+    public void tvPageShouldDisplay() {
+        WebElement pageHeader = driver.findElement(By.xpath("//h1"));
+        assertEquals("Så använder du SVT Play på din tv",pageHeader.getText(),"TV page did not have correct text");
+    }
 }

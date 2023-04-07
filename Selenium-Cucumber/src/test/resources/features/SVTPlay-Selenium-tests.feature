@@ -77,6 +77,12 @@ Feature: Test page navigations and correct browser titles
     When user clicks Nyhetsbrev link
     Then nyhetsbrev page should display
 
+  Scenario:TV link displays and leads to correct page
+    Given user visits SVT Play
+    When user clicks TV link
+    Then TV page should display
+
+
   Scenario:Search for Agenda shows first in the search result
     Given user visits SVT Play
     When user search for the text "Agenda"
